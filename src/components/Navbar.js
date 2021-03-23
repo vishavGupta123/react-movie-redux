@@ -22,12 +22,21 @@ class Navbar extends Component {
             searchText: e.target.value
         });
     };
+    hanldeKeyPress = (e) => {
+        if(e.code=="Enter"){
+            this.setState({
+                searchText: e.target.value
+            },()=>{
+                this.props.dispatch(handleMovieSearch(this.state.searchText));
+            });
+        };
+    }
     render() {
         const { result,showSearchResults } = this.props.search;
         return (
             <div className="nav">
                 <div className="search-container">
-                    <input onChange={this.handleChange} />
+                    <input onChange={this.handleChange} onKeyPress={this.hanldeKeyPress} />
                     <button id="search-btn" onClick={this.handleSearch} >Search</button>
                     {showSearchResults &&
                         <div className="search-results">
